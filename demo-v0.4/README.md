@@ -26,23 +26,24 @@ Agenda
 
 ### - Project structure
 
+### - Project structure - maven modules
+
 ### - How to build pnc and try it out
 
 ### - Open decissions
 
 ---
 
-Overview
-========
-- open source on github
+Overview and motivation
+=======================
+- Open source on github
     - [https://github.com/project-ncl/pnc](https://github.com/project-ncl/pnc)
-- analyze community projects
-    - track all maven dependencies
-    - compare which artifacts are already in the system
-    - track also non mvn requests
-- re-use artifacts from other project
-- do one build only
-    - versions
+- Analyze community projects
+    - Track all maven dependencies
+    - Compare which artifacts are already in the system
+    - Track also non mvn requests
+- Re-use artifacts from other project
+- Do one build only
 
 ---
 
@@ -57,77 +58,82 @@ Main components
 
 Demo
 ====
-- how ot configure a build
-- trigger the build
-- view collected results
+- How to configure a build
+- Trigger the build
+- View collected results
 
 ---
 
 Modularity and Extendibility
 ============================
-- swagger
-- build agents
-- repository manager
-- BPM
+- External
+    - REST
+    - Swagger (pnc-web/apidocs/)
+    - BPM
+- Internal
+    - Build environment SPI
+    - Repository manager SPI
+    - Build driver SPI
+
+---
+
+Project structure - components
+==============================
+- PNC orchestrator (ear deployment)
+- Aprox - maven repository manager
+- Docker host / OpenShift - environment
+    - Builder images with installed build agent and other tools like mvn, git
+- JBPM server - build is a task in the process
+- KeyCloak server 
 
 [PNC structure diagram](./images/pnc-detailed-diagram.png)
 
 ---
 
-Project structure
-=================
-- PNC orchestrator
-- Aprox
-- Docker host
-- JBPM server
-- KeyCloak server
-
----
-
 Project structure - maven modules
 =================================
-- UI
+- UI (AngularJS)
 - REST / Swagger api doc
-- datastore
-- build-coordinator
-- repository manager drivers
-    - *aprox build driver*, nodejs registry, docker registry
-- environment drivers
-    - *Docer host* / swarm, OpenShift, local
-- build drivers
-    - *jenkins build driver*, pnc build agent driver, local?
-- auth
-- integration tests
+- Datastore
+- Build-coordinator
+- repository manager driver SPI
+    - *Aprox repository driver*, Nodejs registry, Docker registry
+- Environment driver SPI
+    - *Docer host / swarm env driver*, OpenShift, local
+- Build driver SPI
+    - *Jenkins build driver*, pnc build agent driver, local?
+- Auth
+- Integration tests
 
 ---
 
 How to build pnc and try it out
 ===============================
-- clone github repo http://github.com/project-ncl/pnc/
+- Clone github repo http://github.com/project-ncl/pnc/
 - mvn clean install
     - produces an ear package to deploy to EAP
-- set-up remote services
-    - Docker host
+- Set-up remote services
+    - Docker host with required images
     - Aprox repository manager
-- configure settings
+- Configure settings
     - or use env variables to "fill" the default file
-- remote tests disabled by default - see README
-    - currently you need all remote components up and running
-    - settings vs. env variables
-- authentication is disabled by default
+- Remote tests disabled by default - see README
+    - Currently you need all remote components up and running
+    - Settings vs. env variables
+- Authentication is disabled by default
     - requires KeyCloak server
 
 ---
 
-Open decissions
-===============
+Open discussions
+================
 - pom-manipulation and versioning
 - OpenShift deployment
-- persistent coordinator state
+- Persistent coordinator state
 - JBPM and OAuth
 - JBPM and UI integration
-- new ligh-weight Build Agent replacing Jenkins
-- Brew connection
+- New light-weight Build Agent replacing Jenkins
+- Brew connection and reliable storage
 
 
 ---
