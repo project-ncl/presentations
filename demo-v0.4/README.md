@@ -24,13 +24,13 @@ Agenda
 
 ### - Modularity and Extendibility
 
-### - Project structure
+### - Project structure - components
 
 ### - Project structure - maven modules
 
 ### - How to build pnc and try it out
 
-### - Open decissions
+### - Open discussions
 
 ---
 
@@ -39,6 +39,7 @@ Overview and motivation
 - Open source on github
     - [https://github.com/project-ncl/pnc](https://github.com/project-ncl/pnc)
 - Analyze community projects
+    - Build should pass at first
     - Track all maven dependencies
     - Compare which artifacts are already in the system
     - Track also non mvn requests
@@ -68,6 +69,7 @@ Modularity and Extendibility
 ============================
 - External
     - REST
+    - WebSockets
     - Swagger (pnc-web/apidocs/)
     - BPM
 - Internal
@@ -81,8 +83,9 @@ Project structure - components
 ==============================
 - PNC orchestrator (ear deployment)
 - Aprox - maven repository manager
-- Docker host / OpenShift - environment
-    - Builder images with installed build agent and other tools like mvn, git
+    - Docker registry, Node registry
+- Docker host / OpenShift - build environment provider
+    - docker images with build agent and other tools like mvn, git
 - JBPM server - build is a task in the process
 - KeyCloak server 
 
@@ -97,9 +100,9 @@ Project structure - maven modules
 - Datastore
 - Build-coordinator
 - repository manager driver SPI
-    - *Aprox repository driver*, Nodejs registry, Docker registry
+    - *Aprox repository driver*, Node registry driver, Docker registry driver
 - Environment driver SPI
-    - *Docer host / swarm env driver*, OpenShift, local
+    - *Docer host / swarm env driver*, OpenShift driverv, local env driver
 - Build driver SPI
     - *Jenkins build driver*, pnc build agent driver, local?
 - Auth
@@ -128,8 +131,8 @@ How to build pnc and try it out
 Open discussions
 ================
 - pom-manipulation and versioning
-- OpenShift deployment
-- Persistent coordinator state
+- OpenShift deployment and build environment provider
+- Persistent build coordinator state
 - JBPM and OAuth
 - JBPM and UI integration
 - New light-weight Build Agent replacing Jenkins
