@@ -37,6 +37,8 @@ Productization requirements
     - capture all dependencies
         - maven
         - other http
+- ability to produce patches
+- ability to produce Maven repository for customers.
 
 ---
 
@@ -57,13 +59,6 @@ Why PNC
 
 ---
 
-Coordinating local builds with PNC
-==================================
-- Local build will provide the ability to use the same isolated build environment
-- Ability to import / export the build configuration (e.g. through a BUILD.json file)
-
----
-
 Analyzing your project
 ======================
 - Dependency Analysis
@@ -71,20 +66,29 @@ Analyzing your project
     - Check what dependencies are already available within PNC.
     - May be run as standalone tooling or configured on-line
     - produce local build descriptor BUILD.json ?
-- Automatic Import
-    - Tooling will be provided to automatically create the relevant BuildConfigurations for your Project
+- Extensible set of QA checks to get advance notification of any problems integrating your project.
+
+---
+
+Coordinating local builds with PNC
+==================================
+- Local build will provide the ability to use the same isolated build environment
+- Ability to import / export the build configuration (e.g. through a BUILD.json file)
 
 ---
 
 Build using on-line version (Handover to Prod)
 ==============================================
 - (BUILD.json ?)
+- Automatic Import
+    - Tooling will be provided to assist building your Project inside PNC.
+
 
 ---
 
 Versioning
 =======================
-- Project that is built needs a redhat-x suffix to avoid a GAV clash
+- Project that is built needs a redhat-x suffix to avoid a GAV clash with external repositories.
 - Aim is to automate this and store productisation changes on a SCM branch.
 - Tooling to change the version of the project is still in development.
     - Some elements of current tooling (POM Manipulation Extension) may be used.
