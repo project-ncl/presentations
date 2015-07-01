@@ -37,6 +37,8 @@ Productization requirements
     - capture all dependencies
         - maven
         - other http
+- ability to produce patches
+- ability to produce Maven repository for customers.
 
 ---
 
@@ -57,47 +59,58 @@ Why PNC
 
 ---
 
-Coordinating local builds with PNC
-==================================
-- BUILD.json
+Analyzing your project
+======================
+- Dependency Analysis
+    - Check a project is using 'supported' versions for dependencies.
+    - Check what dependencies are already available within PNC.
+    - May be run as standalone tooling or configured on-line
+    - produce local build descriptor BUILD.json ?
+- Extensible set of QA checks to get advance notification of any problems integrating your project.
 
 ---
 
-Analyzing your project
-======================
-- DA
-    - configure on-line
-    - produce local build descriptor BUILD.json ?
+Coordinating local builds with PNC
+==================================
+- Local build will provide the ability to use the same isolated build environment
+- Ability to import / export the build configuration (e.g. through a BUILD.json file)
 
 ---
 
 Build using on-line version (Handover to Prod)
 ==============================================
 - (BUILD.json ?)
+- Automatic Import
+    - Tooling will be provided to assist building your Project inside PNC.
+
 
 ---
 
-Versioning and patching
+Versioning
 =======================
-- PME
+- Project that is built needs a redhat-x suffix to avoid a GAV clash with external repositories.
+- Aim is to automate this and store productisation changes on a SCM branch.
+- Tooling to change the version of the project is still in development.
+    - Some elements of current tooling (POM Manipulation Extension) may be used.
+- Tooling should also handle alignment of dependencies
+    - Design of this (e.g. how to handle picking the correct versions is currently under discussion).
+
 
 ---
 
 Use artifacts from other build systems (Brew)
 =============================================
-- use already built artifacts
+- May use already built artifacts
+- Will access maven.repository.redhat.com for 'released' artifacts
 
 ---
 
-Status
-======
+Implementation Status
+======================
 - “On-line” Build coordinator in place
 - local Build Coordinator (WIP)
 - pipe-line WIP
     - JBPM/ESB
-- An open question is versioning (PME)
-- product patching - what to rebuild if deep dependency is updated
-    - an option is to use version ranges
 
 ---
 
