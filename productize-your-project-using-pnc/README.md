@@ -1,9 +1,12 @@
 Productize Your Project Using PNC
 =================================
-<br />
+<br /><br />
+<br /><br />
+Nick Cross [ncross@redhat.com](mailto:ncross@redhat.com)
 
+Paul Gier [pgier@redhat.com](mailto:pgier@redhat.com)
 
-<br />
+Matej Lazar [mlazar@redhat.com](mailto:mlazar@redhat.com)
 
 
 ???
@@ -21,13 +24,13 @@ Agenda
 
 ### - Analyzing your project
 
-### - Coordinating local builds with PNC
-
-### - Build using on-line version
-
 ### - Versioning
 
 ### - Use artifacts from other build systems (Brew)
+
+### - Coordinating local builds with PNC
+
+### - Build using on-line version
 
 ### - Implementation Status
 
@@ -40,8 +43,12 @@ Productization requirements
     - Capture all dependencies
         - Maven
         - Other http
+- Controlled environment
+    - Clean for each build
 - Ability to produce patches
 - Ability to produce Maven repository for customers
+    - Runtime
+    - Off-line build
 
 ---
 
@@ -63,7 +70,7 @@ Why PNC
 
 Analyzing your project
 ======================
-- Dependency Analysis
+- Dependency Analysis (pre-build)
     - Check a project is using 'supported' versions for dependencies
     - Check what dependencies are already available within PNC
     - May be run as standalone tooling or configured on-line
@@ -74,9 +81,9 @@ Analyzing your project
 
 Versioning
 ==========
-- Project that is built needs a redhat-x suffix to avoid a GAV clash with external repositories
-- Aim is to automate this and store productisation changes on a SCM branch
-- Automatically change the version of the project
+- Built as redhat-x suffix to avoid a GAV clash with external repositories
+- All dependencies must be build as redhat-x
+- Aim is to automate version update and store productisation changes on a SCM branch
 - Tooling to help with the alignment of dependencies
 
 ---
@@ -91,27 +98,30 @@ Use artifacts from other build systems (Brew)
 
 Coordinating local builds with PNC
 ==================================
-- Describe all build details with a config file
+- Describe all build details with a config file (BUILD.json)
     - SCM location, tag / commit-id
     - Build command line (maven profiles and other required parameters)
 - Build project and dependencies from source with single command
     - Easier team work with moving versions
 - Supports non Maven and non Java builds
 - The ability to use the same isolated build environment
+- The ability to use PNC's proxy to track dependencies
 
 ---
 
 Build using on-line version
 ===========================
 - BPM managed product pipe-line
-    - External triggers (SCM update, CLI)
     - Pom manipulation to pick the latest version
-    - Parallel builds
     - QA
     - Publishing
 - Ability to import / export the build configuration (BUILD.json)
-- Automatic Import
-    - Tooling will be provided to assist building your Project inside PNC
+- Assist building your Project
+    - SCM Repo sync
+    - External triggers (SCM update, CLI)
+    - Automatic import of BUILD.json
+    - Automatic rebuild if dependency is updated
+
 
 ---
 
@@ -122,6 +132,7 @@ Implementation Status
     - Maven dependency tracking and storing
     - Non Maven dependency tracking (WIP)
 - Local Build Coordinator (WIP)
+    - BUILD.json (needs to be defined)
 - Versioning tooling (WIP)
 - Pipe-line (WIP)
     - JBPM/ESB
